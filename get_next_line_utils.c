@@ -6,7 +6,7 @@
 /*   By: sdanzanr <sdanzanr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 21:20:13 by sdanzanr          #+#    #+#             */
-/*   Updated: 2025/05/09 00:39:39 by sdanzanr         ###   ########.fr       */
+/*   Updated: 2025/05/09 04:18:28 by sdanzanr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,64 +22,57 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *str, int num)
+char	*ft_strchr(const char *s, int c)
 {
-	if (!str)
-		return (NULL);
-	while (*str)
+	while (*s)
 	{
-		if (*str == (char)num)
-			return ((char *)str);
-		str++;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
-	if ((char)num == '\0')
-		return ((char *)str);
+	if (!(char)c)
+		return ((char *)s);
 	return (NULL);
 }
 
-char	*ft_strdup(const char *string)
+char	*ft_strdup(const char *s)
 {
-	char	*ptr;
-	int		i;
+	char	*r;
+	char	*r_head;
+	size_t	len;
 
-	i = 0;
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(string) + 1));
-	if (!ptr)
-		return (ptr);
-	while (string[i])
+	len = ft_strlen(s);
+	r_head = (char *)malloc(sizeof(char) * (len + 1));
+	if (r_head)
 	{
-		ptr[i] = string[i];
-		i++;
+		r = r_head;
+		while (len--)
+			*r++ = *s++;
+		*r = '\0';
 	}
-	ptr[i] = 0;
-	return (ptr);
+	return (r_head);
 }
-
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		i;
-	int		j;
-	char	*ptr;
+	char	*r;
+	char	*r_head;
+	size_t	size;
 
-	i = 0;
-	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!ptr)
-		return (NULL);
-	while (s1[j])
+	if (!s1)
+		s1 = "";
+	if (!s2)
+		s2 = "";
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	r_head = (char *)malloc(sizeof(char) * size);
+	if (r_head)
 	{
-		ptr[i++] = s1[j];
-		j++;
+		r = r_head;
+		while (*s1)
+			*r++ = *s1++;
+		while (*s2)
+			*r++ = *s2++;
+		*r = '\0';
 	}
-	j = 0;
-	while (s2[j])
-	{
-		ptr[i++] = s2[j];
-		j++;
-	}
-	ptr[i] = 0;
-	return (ptr);
+	return (r_head);
 }
